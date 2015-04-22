@@ -35,12 +35,23 @@ oppia.controller('ExplorationSettings', [
 
   $scope.CATEGORY_LIST_FOR_SELECT2 = [];
 
+
   for (var i = 0; i < CATEGORY_LIST.length; i++) {
-  $scope.CATEGORY_LIST_FOR_SELECT2.push({
-    id: CATEGORY_LIST[i],
-    text: CATEGORY_LIST[i]
-  });
+    $scope.CATEGORY_LIST_FOR_SELECT2.push({
+      id: CATEGORY_LIST[i],
+      text: CATEGORY_LIST[i]
+    });
   }
+
+  //returns undefined
+  console.log('category_test', explorationCategoryService.displayed)
+
+  //my attempt at adding the user defined category, I should add an if statement
+  //to make sure it doesn't exist already
+  $scope.CATEGORY_LIST_FOR_SELECT2.push({
+    id: explorationCategoryService.displayed,
+    text: explorationCategoryService.displayed
+  });
 
   var GALLERY_PAGE_URL = '/gallery';
   var EXPLORE_PAGE_PREFIX = '/explore/';
