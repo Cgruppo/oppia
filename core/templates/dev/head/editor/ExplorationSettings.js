@@ -35,23 +35,12 @@ oppia.controller('ExplorationSettings', [
 
   $scope.CATEGORY_LIST_FOR_SELECT2 = [];
 
-
   for (var i = 0; i < CATEGORY_LIST.length; i++) {
     $scope.CATEGORY_LIST_FOR_SELECT2.push({
       id: CATEGORY_LIST[i],
       text: CATEGORY_LIST[i]
     });
   }
-
-  //returns undefined
-  console.log('category_test', explorationCategoryService.displayed)
-
-  //my attempt at adding the user defined category, I should add an if statement
-  //to make sure it doesn't exist already
-  $scope.CATEGORY_LIST_FOR_SELECT2.push({
-    id: explorationCategoryService.displayed,
-    text: explorationCategoryService.displayed
-  });
 
   var GALLERY_PAGE_URL = '/gallery';
   var EXPLORE_PAGE_PREFIX = '/explore/';
@@ -74,6 +63,7 @@ oppia.controller('ExplorationSettings', [
 
     explorationData.getData().then(function(data) {
       $scope.refreshSettingsTab();
+      $scope.hasPageLoaded = true;
     });
   };
 
@@ -84,6 +74,12 @@ oppia.controller('ExplorationSettings', [
     // directly (by entering a URL that ends with /settings) results in a
     // console error.
     if (_states) {
+      var newCategory={
+        id: explorationCategoryService.displayed,
+        text: explorationCategoryService.displayed};
+      if($scope.CATEGORY_LIST_FOR_SELECT2.indexOf(newCategory) === -1){
+        $scope.CATEGORY_LIST_FOR_SELECT2.push(newCategory);
+      }
       $scope.stateNames = Object.keys(_states);
     }
   };
